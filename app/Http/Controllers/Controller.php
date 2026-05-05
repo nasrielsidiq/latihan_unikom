@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(
-    title: "My Laravel API Documentation",
+    title: "API Latihan Unikom",
     version: "1.0.0",
-    description: "Dokumentasi API menggunakan Swagger L5"
+    description: "Dokumentasi API Mahasiswa menggunakan Laravel 13 & Swagger"
 )]
 #[OA\Server(
     url: "http://localhost:8000",
-    description: "Local Server"
+    description: "Local Development Server"
+)]
+#[OA\Server(
+    url: "https://starling-right-hen.ngrok-free.app",
+    description: "Production Server"
 )]
 abstract class Controller
 {

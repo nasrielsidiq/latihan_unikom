@@ -44,7 +44,7 @@ return [
                  * Absolute paths to directory containing the swagger annotations are stored.
                  */
                 'annotations' => [
-                    base_path('app/Http/Controllers/'),
+                    base_path('app'),
                     // app_path('Http/Controllers/'),
                 ],
             ],
@@ -249,7 +249,7 @@ return [
          * Edit to trust the proxy's ip address - needed for AWS Load Balancer
          * string[]
          */
-        'proxy' => false,
+        'proxy' => true,
 
         /*
          * Configs plugin allows to fetch external configs instead of passing them to SwaggerUIBundle.

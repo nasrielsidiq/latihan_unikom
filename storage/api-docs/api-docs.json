@@ -1,0 +1,516 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Latihan Unikom",
+        "description": "Dokumentasi API Mahasiswa menggunakan Laravel 13 & Swagger",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Local Development Server"
+        },
+        {
+            "url": "https://starling-right-hen.ngrok-free.app",
+            "description": "Production Server"
+        },
+        {
+            "url": "https://starling-right-hen.ngrok-free.app"
+        }
+    ],
+    "paths": {
+        "/api/mahasiswa": {
+            "get": {
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "List semua mahasiswa",
+                "operationId": "dbf3137c7d1805b9cf58fe27b70a6e89",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data Mahasiswa"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Mahasiswa"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Tambah mahasiswa baru",
+                "operationId": "66fe54445ec2d86b3347d43216a5045f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MahasiswaInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tersimpan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mahasiswa berhasil disimpan"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Mahasiswa"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nim": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "The nim field is required."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mahasiswa/{id}": {
+            "get": {
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Tampilkan detail mahasiswa",
+                "operationId": "74de419ee2bf151bc82b9044e182df7b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Mahasiswa"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Perbarui data mahasiswa",
+                "operationId": "ae894e88f2aa13240bc5ce5d3df51774",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MahasiswaUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Data diperbarui",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data diperbarui"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Mahasiswa"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nama": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "The nama field is required."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Hapus mahasiswa",
+                "operationId": "416b66a5d2acf8515b2277b8c4d2304a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data dihapus",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data dihapus"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Mahasiswa": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nim": {
+                        "type": "string",
+                        "example": "20000123"
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "Budi Santoso"
+                    },
+                    "jenis_kelamin": {
+                        "type": "string",
+                        "example": "L",
+                        "enum": [
+                            "L",
+                            "P"
+                        ]
+                    },
+                    "kelas": {
+                        "type": "string",
+                        "example": "TI-3A"
+                    },
+                    "jurusan": {
+                        "type": "string",
+                        "example": "Teknik Informatika"
+                    },
+                    "tahun_masuk": {
+                        "type": "string",
+                        "example": "2023"
+                    },
+                    "agama": {
+                        "type": "string",
+                        "example": "Islam"
+                    },
+                    "alamat_asal": {
+                        "type": "string",
+                        "example": "Jl. Merdeka No.1"
+                    },
+                    "alamat_sekarang": {
+                        "type": "string",
+                        "example": "Jl. Sudirman No.10",
+                        "nullable": true
+                    },
+                    "foto": {
+                        "type": "string",
+                        "example": "foto_mahasiswa/abc123.jpg",
+                        "nullable": true
+                    },
+                    "link_ig": {
+                        "type": "string",
+                        "example": "https://instagram.com/budi",
+                        "nullable": true
+                    },
+                    "link_linkedin": {
+                        "type": "string",
+                        "example": "https://linkedin.com/in/budi",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "MahasiswaInput": {
+                "required": [
+                    "nim",
+                    "nama",
+                    "jenis_kelamin",
+                    "kelas",
+                    "jurusan",
+                    "tahun_masuk",
+                    "agama",
+                    "alamat_asal"
+                ],
+                "properties": {
+                    "nim": {
+                        "type": "string",
+                        "example": "20000123"
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "Budi Santoso"
+                    },
+                    "jenis_kelamin": {
+                        "type": "string",
+                        "example": "L",
+                        "enum": [
+                            "L",
+                            "P"
+                        ]
+                    },
+                    "kelas": {
+                        "type": "string",
+                        "example": "TI-3A"
+                    },
+                    "jurusan": {
+                        "type": "string",
+                        "example": "Teknik Informatika"
+                    },
+                    "tahun_masuk": {
+                        "type": "string",
+                        "example": "2023"
+                    },
+                    "agama": {
+                        "type": "string",
+                        "example": "Islam"
+                    },
+                    "alamat_asal": {
+                        "type": "string",
+                        "example": "Jl. Merdeka No.1"
+                    },
+                    "alamat_sekarang": {
+                        "type": "string",
+                        "example": "Jl. Sudirman No.10",
+                        "nullable": true
+                    },
+                    "foto": {
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "link_ig": {
+                        "type": "string",
+                        "example": "https://instagram.com/budi",
+                        "nullable": true
+                    },
+                    "link_linkedin": {
+                        "type": "string",
+                        "example": "https://linkedin.com/in/budi",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "MahasiswaUpdate": {
+                "properties": {
+                    "nama": {
+                        "type": "string",
+                        "example": "Budi Santoso"
+                    },
+                    "jenis_kelamin": {
+                        "type": "string",
+                        "example": "L",
+                        "enum": [
+                            "L",
+                            "P"
+                        ]
+                    },
+                    "kelas": {
+                        "type": "string",
+                        "example": "TI-3A"
+                    },
+                    "jurusan": {
+                        "type": "string",
+                        "example": "Teknik Informatika"
+                    },
+                    "tahun_masuk": {
+                        "type": "string",
+                        "example": "2023"
+                    },
+                    "agama": {
+                        "type": "string",
+                        "example": "Islam"
+                    },
+                    "alamat_asal": {
+                        "type": "string",
+                        "example": "Jl. Merdeka No.1"
+                    },
+                    "alamat_sekarang": {
+                        "type": "string",
+                        "example": "Jl. Sudirman No.10",
+                        "nullable": true
+                    },
+                    "foto": {
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "link_ig": {
+                        "type": "string",
+                        "example": "https://instagram.com/budi",
+                        "nullable": true
+                    },
+                    "link_linkedin": {
+                        "type": "string",
+                        "example": "https://linkedin.com/in/budi",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Mahasiswa",
+            "description": "Operasi CRUD untuk Mahasiswa"
+        }
+    ]
+}
